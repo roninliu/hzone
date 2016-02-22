@@ -12,7 +12,7 @@ export default class extends think.service.base {
 	};
 	login(url, data) {
 		return Fetch(url, {
-				method: "POST",
+				method: "GET",
 				body: data
 			})
 			.then((res) => {

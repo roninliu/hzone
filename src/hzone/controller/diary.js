@@ -32,12 +32,15 @@ export default class extends Base {
 
 		let DiaryService = think.service("diary", "hzone");
 		let instance = new DiaryService();
-		instance.login(config.api + "/index/Diary/getDiaryList.do", formData).then(function(r) {
-			console.log(r == null);
-			if (r == null) {
-				_self.fail("NO_DATA_ERROR");
-			}
-		})
+		instance.login(config.api + "/index/Diary/getDiaryList.do", formData)
+			.then((r) => {
+				console.log(r == null);
+				if (r == null) {
+					this.fail("NO_DATA_ERROR");
+				} else {
+					this.success(r);
+				}
+			})
 
 	}
 }
