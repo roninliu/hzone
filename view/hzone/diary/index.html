@@ -1,0 +1,22 @@
+<%include ../../common/inc/header.html%>
+<link rel="stylesheet" type="text/css" href="<%-style%>/diary.css" />
+<div>1111</div>
+<div class="diary-main">
+  <ul class="list-box" id="js_datalist">
+    <li class="nextPage " data-url="diary-de.html"  v-for="data in diarys" v-cloak >
+      <div class="pic" onclick="" data-pointid="20006302" data-user_id="{{data.author.user_id}}" data-headimg="{{data.author.head_img}}" data-gender="{{data.author.gender}}" data-nick_name="{{data.author.nick_name}}" data-style="{{data.style}}" data-type="{{data.type}}" style="background-image:url({{data.imgs[0]}});" data-diaryid="{{data.id}}"><span class="{{data.fenggesp}}" ><i class="{{data.icojiao}}"></i>{{data.style}}</span></div>
+      <div class="author">
+        <i class="head-img" data-pointid="20006303" data-user_id="{{data.author.user_id}}" style="background-image:url({{data.author.head_img}})"></i>
+        <p class="name">{{data.author.nick_name}}<i class="{{data.author.gender}}"></i></p>
+        <P class="pinglun">{{data.content}}</P>
+        <p class="zan" v-if ="data.praiseCount">
+          <i v-for="prise in data.praise"  style="background-image:url({{prise.headImg}})" v-cloak></i>
+          <span v-if="data.praise.length!=0" >{{data.praiseCount}}赞</span>
+        </p>
+        <p class="date">{{data.add_time}}</p>
+      </div>
+    </li>
+  </ul>
+</div>
+<script src="/static/js/diary.js"></script>
+<%include ../../common/inc/footer.html%>
