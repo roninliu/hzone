@@ -1,7 +1,7 @@
 'use strict';
 
 import Base from './base.js';
-import Fetch from 'node-fetch';
+
 import FormData from 'form-data';
 
 export default class extends Base {
@@ -9,7 +9,7 @@ export default class extends Base {
 		let config = this.config();
 		this.assign({
 			style: config.style_uri,
-			title:config.DIARY_PAGE
+			title: config.DIARY_PAGE
 		})
 	};
 	indexAction() {
@@ -29,26 +29,15 @@ export default class extends Base {
 		if (styles !== 0) {
 			formData.append("styles", styles)
 		}
-		console.log(new Date());
-		Fetch(config.api + "/index/Diary/getDiaryList.do", {
-				method: "GET",
-				body: formData
-			})
-			.then((res) => {
-				if (res.ok) {
-					return res.json();
-				} else {
-					this.fail("API_SERVER_ERROR");
-				}
-			})
-			.then((result) => {
-				console.log(result);
-				if (result.status === 200) {
-					console.log(new Date());
-					this.success(result.data);
-				} else {
-					this.fail("NO_DATA_ERROR");
-				}
-			})
+
+		let DiaryService = think.service("diary", "hzone");
+		let instance = new DiaryService();
+		instance.login(config.api + "/index/Diary/getDiaryList.do", formData).then(function(r) {
+			console.log(r == null);
+			if (r == null) {
+				_self.fail("NO_DATA_ERROR");
+			}
+		})
+
 	}
 }
